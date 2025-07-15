@@ -6,7 +6,7 @@ public class NonNullRunner {
 
     public static void main(String[] args) {
         String name = null;
-        print(name);
+//        print(name);
     }
 
     static void print(@NonNull String input) {

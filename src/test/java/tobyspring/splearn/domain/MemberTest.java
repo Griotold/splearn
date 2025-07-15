@@ -24,7 +24,7 @@ class MemberTest {
                 return encode(password).equals(passwordHash);
             }
         };
-        member = Member.create("rio@splearn.app", "rio", "secret", passwordEncoder);
+        member = Member.create(new MemberCreateRequest("rio@splearn.app", "rio", "secret"), passwordEncoder);
     }
 
     // 도메인 규칙을 잘 지키고 있는지 검증해 보는 것이다.
@@ -87,5 +87,18 @@ class MemberTest {
         member.changePassword("verySecret", passwordEncoder);
         
         assertThat(member.verifyPassword("verySecret", passwordEncoder)).isTrue();
+    }
+
+    @Test
+    void isActive() {
+        assertThat(member.isActive()).isFalse();
+
+        member.activate();
+
+        assertThat(member.isActive()).isTrue();
+
+        member.deactivate();
+
+        assertThat(member.isActive()).isFalse();
     }
 }
