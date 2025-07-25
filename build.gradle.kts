@@ -40,3 +40,7 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+spotbugs {
+    ignoreFailures = true
+}

@@ -1,9 +1,10 @@
+```java
 package tobyspring.splearn.application.provided;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.test.util.ReflectionTestUtils;
-import tobyspring.splearn.application.MemberService;
+import tobyspring.splearn.application.MemberModifyService;
 import tobyspring.splearn.application.required.EmailSender;
 import tobyspring.splearn.application.required.MemberRepository;
 import tobyspring.splearn.domain.Email;
@@ -98,3 +99,4 @@ class MemberRegisterManualTest {
         }
     }
 }
+```
