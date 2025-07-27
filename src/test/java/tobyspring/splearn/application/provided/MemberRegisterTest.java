@@ -9,14 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import tobyspring.splearn.SplearnTestConfiguration;
 import tobyspring.splearn.domain.*;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Transactional
 @Import(SplearnTestConfiguration.class)
 @SpringBootTest
-public record MemberRegisterTest(MemberRegister memberRegister, EntityManager em) {
+record MemberRegisterTest(MemberRegister memberRegister, EntityManager em) {
 
     @Test
     void register() {
@@ -37,10 +36,9 @@ public record MemberRegisterTest(MemberRegister memberRegister, EntityManager em
 
     @Test
     void memberRegisterRequestFail() {
-        MemberRegisterRequest registerRequest = new MemberRegisterRequest("splearn@email.com", "rio", "secret");
-        extracted("splearn@email.com", "rio", "longSecret");
-        extracted("splearn@email.com", "rio1234", "secret");
-        extracted("splearnemail.com", "rio1234", "longSecret");
+        checkValidation("splearn@email.com", "rio", "longSecret");
+        checkValidation("splearn@email.com", "rio1234", "secret");
+        checkValidation("splearnemail.com", "rio1234", "longSecret");
     }
 
     @Test
@@ -58,7 +56,7 @@ public record MemberRegisterTest(MemberRegister memberRegister, EntityManager em
 
     }
 
-    private void extracted(String email, String nickname, String password) {
+    private void checkValidation(String email, String nickname, String password) {
         assertThatThrownBy(() -> memberRegister.register(new MemberRegisterRequest(email, nickname, password)))
                 .isInstanceOf(ConstraintViolationException.class);
     }
