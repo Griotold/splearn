@@ -11,24 +11,27 @@ import org.hibernate.annotations.NaturalIdCache;
 import static java.util.Objects.requireNonNull;
 import static org.springframework.util.Assert.state;
 
+@Table(name = "MEMBER", uniqueConstraints = {
+        @UniqueConstraint(name = "UK_MEMBER_EMAIL_ADDRESS", columnNames = "email_address")
+})
 @Entity
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @NaturalIdCache
-public class Member {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Member extends AbstractEntity {
 
     @Embedded
     @NaturalId
     private Email email;
 
+    @Column(length = 100, nullable = false)
     private String nickname;
 
+    @Column(length = 200, nullable = false)
     private String  passwordHash;
 
+    @Column(length = 50, nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberStatus status;
 
